@@ -1,10 +1,10 @@
-import React from 'react';
-import './homepage.scss'
+import React, {FC} from 'react';
+import './home-page.scss'
 import Directory from "../../components/directory/Directory";
 
-const HomePage = () => (
+const HomePage: FC = () => (
     <div className='homepage'>
-        <Directory />
+        <Directory/>
     </div>
 )
 
