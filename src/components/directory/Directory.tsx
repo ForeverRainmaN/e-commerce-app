@@ -1,13 +1,10 @@
-import React, {Component} from 'react'
+import React, {FC, useState} from 'react'
 import MenuItem from "../menu-item/MenuItem";
+
 import {Identifiable} from "../../common/types";
 
-import DIRECTORY_DATA from "./directoryState";
 import './directory.scss'
-
-type DirectoryState = {
-    sections: Section[];
-}
+import DIRECTORY_DATA from "./directoryState";
 
 interface Section extends Identifiable {
     title: string,
@@ -16,27 +13,22 @@ interface Section extends Identifiable {
     linkUrl: string
 }
 
-class Directory extends Component<{}, DirectoryState> {
-    readonly state: Readonly<DirectoryState> = {
-        sections: DIRECTORY_DATA
-    }
+type DirectoryState = Section[]
 
-    render() {
-        const {sections} = this.state
-        return (
-            <div className='directory-menu'>
-                {
-                    sections
-                        .map(({id, ...rest}) => (
-                            <MenuItem
-                                key={id}
-                                {...rest}
-                            />
-                        ))
-                }
-            </div>
-        )
-    }
+const Directory: FC = () => {
+    const [sections,] = useState<DirectoryState>(DIRECTORY_DATA)
+    return (
+        <div className='directory-menu'>
+            {
+                sections.map(({id, ...rest}) => (
+                    <MenuItem
+                        key={id}
+                        {...rest}
+                    />
+                ))
+            }
+        </div>
+    )
 }
 
 export default Directory

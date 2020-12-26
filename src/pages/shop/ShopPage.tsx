@@ -1,36 +1,28 @@
-import React, {Component} from 'react';
+import React, {FC, useState} from 'react';
 import {ShopPageSection} from "../../common/types";
-
-import SHOP_DATA from "./shopPageState";
 import SectionPreview from "../../components/preview-section/SectionPreview";
 
-interface ShopPageState {
-    sections: ShopPageSection[]
-}
+import SHOP_DATA from "./shopPageState";
 
-class ShopPage extends Component<{}, ShopPageState> {
-    readonly state: Readonly<ShopPageState> = {
-        sections: SHOP_DATA
-    }
+type ShopPageState = ShopPageSection[]
 
-    render() {
-        const {sections} = this.state;
-        return (
-            <div className='shopPage'>
-                {
-                    sections.map(({id, ...rest}) => (
-                        <SectionPreview
-                            key={id}
-                            title={rest.title}
-                            routeName={rest.routeName}
-                            items={rest.items}
-                            id={id}
-                        />
-                    ))
-                }
-            </div>
-        )
-    }
+const ShopPage: FC = () => {
+    const [shopPageData,] = useState<ShopPageState>(SHOP_DATA)
+    return (
+        <div className='shopPage'>
+            {
+                shopPageData.map(({id, ...rest}) => (
+                    <SectionPreview
+                        key={id}
+                        title={rest.title}
+                        routeName={rest.routeName}
+                        items={rest.items}
+                        id={id}
+                    />
+                ))
+            }
+        </div>
+    )
 }
 
 export default ShopPage
