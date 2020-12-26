@@ -40,4 +40,3 @@ class Directory extends Component<{}, DirectoryState> {
 }
 
 export default Directory
-
