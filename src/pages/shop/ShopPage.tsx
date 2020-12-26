@@ -1,24 +1,12 @@
 import React, {Component} from 'react';
-import {Identifiable} from "../../common/types";
+import {ShopPageSection} from "../../common/types";
 
 import SHOP_DATA from "./shopPageState";
+import SectionPreview from "../../components/preview-section/SectionPreview";
 
 interface ShopPageState {
     sections: ShopPageSection[]
 }
-
-interface ShopPageSection extends Identifiable {
-    title: string,
-    routeName: string,
-    items: ShopPageItem[]
-}
-
-interface ShopPageItem extends Identifiable {
-    name: string,
-    imageUrl: string,
-    price: number;
-}
-
 
 class ShopPage extends Component<{}, ShopPageState> {
     readonly state: Readonly<ShopPageState> = {
@@ -26,8 +14,21 @@ class ShopPage extends Component<{}, ShopPageState> {
     }
 
     render() {
+        const {sections} = this.state;
         return (
-            <div>Hi</div>
+            <div className='shopPage'>
+                {
+                    sections.map(({id, ...rest}) => (
+                        <SectionPreview
+                            key={id}
+                            title={rest.title}
+                            routeName={rest.routeName}
+                            items={rest.items}
+                            id={id}
+                        />
+                    ))
+                }
+            </div>
         )
     }
 }
