@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import {Identifiable} from "../../common/types";
 
 import SHOP_DATA from "./shopPageState";
-import {Identifiable} from "../../components/common/types";
 
 interface ShopPageState {
     sections: ShopPageSection[]

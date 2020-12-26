@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import MenuItem from "../menu-item/MenuItem";
+import {Identifiable} from "../../common/types";
 
-import './directory.scss'
 import DIRECTORY_DATA from "./directoryState";
-import {Identifiable} from "../common/types";
+import './directory.scss'
 
 type DirectoryState = {
     sections: Section[];
