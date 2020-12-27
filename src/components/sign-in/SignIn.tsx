@@ -11,10 +11,10 @@ const SignIn: FC = () => {
         values,
         handleChange,
         handleSubmit
-    } = useForm({
+    } = useForm(
         initialValues,
-        onSubmit: values => console.log({values})
-    });
+        (values) => console.log(values)
+    )
     const {email, password} = values;
     return (
         <div className='sign-in'>
@@ -27,7 +27,6 @@ const SignIn: FC = () => {
                     type='email'
                     required
                     onChange={handleChange}
-                    onError={(e) => console.log(e) }
                 />
                 <label>Email</label>
                 <input

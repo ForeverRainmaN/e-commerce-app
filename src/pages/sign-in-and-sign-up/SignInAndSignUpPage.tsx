@@ -3,7 +3,10 @@ import SignIn from "../../components/sign-in/SignIn";
 
 const SignInAndSignUpPage: FC = () => {
     return (
-        <SignIn/>
+        <div className='sign-in-and-sign-up'>
+            <SignIn/>
+        </div>
+
     )
 }
 
