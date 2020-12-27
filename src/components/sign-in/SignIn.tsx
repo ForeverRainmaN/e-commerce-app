@@ -10,7 +10,6 @@ const SignIn: FC = () => {
     const {
         values,
         handleChange,
-        handleBlur,
         handleSubmit
     } = useForm({
         initialValues,
@@ -28,7 +27,7 @@ const SignIn: FC = () => {
                     type='email'
                     required
                     onChange={handleChange}
-                    onBlur={handleBlur}
+                    onError={(e) => console.log(e) }
                 />
                 <label>Email</label>
                 <input
@@ -37,7 +36,6 @@ const SignIn: FC = () => {
                     type='password'
                     required
                     onChange={handleChange}
-                    onBlur={handleBlur}
                 />
                 <label>Password</label>
                 <button type="submit">Submit</button>
