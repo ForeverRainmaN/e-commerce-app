@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
-import { ReactComponent as Logo } from '../../assets/crown.svg'
+import {ReactComponent as Logo} from '../../assets/crown.svg'
 
 import './header.scss'
 
-const Header:FC = () => (
+const Header: FC = () => (
     <div className='header'>
         <Link className='logo-container' to="/">
             <Logo className="logo"/>
@@ -21,4 +21,4 @@ const Header:FC = () => (
     </div>
 );
 
-export default Header
+export default withRouter(Header)
