@@ -1,11 +1,16 @@
 import React, {FC} from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, RouteComponentProps, withRouter} from 'react-router-dom';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg'
+import {auth, User} from "../../firebase/firebase.utils";
 
 import './header.scss'
 
-const Header: FC = () => (
+interface HeaderProps extends RouteComponentProps {
+    currentUser: User
+}
+
+const Header: FC<HeaderProps> = ({currentUser}) => (
     <div className='header'>
         <Link className='logo-container' to="/">
             <Logo className="logo"/>
@@ -17,6 +22,17 @@ const Header: FC = () => (
             <Link className='option' to='/shop'>
                 CONTACTS
             </Link>
+            {
+                currentUser ?
+                    <div className='option'
+                         onClick={() => auth.signOut()}
+                    >SIGN OUT
+                    </div>
+                    :
+                    <Link className='option' to='/signin'>
+                        SIGN IN
+                    </Link>
+            }
         </div>
     </div>
 );

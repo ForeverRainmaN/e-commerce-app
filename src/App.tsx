@@ -10,19 +10,19 @@ import {auth, Unsubscribe, User} from './firebase/firebase.utils';
 import './App.css';
 
 const App = () => {
-    const [, setCurrentUser] =
-        useState<{ currentUser: null | User }>({currentUser: null})
+    const [currentUser, setCurrentUser] = useState<User>(null)
 
     useEffect(() => {
-        const unsubscribe: Unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser({currentUser: user})
-        })
+        const unsubscribe: Unsubscribe =
+            auth.onAuthStateChanged(user => {
+                setCurrentUser(user)
+            });
         return () => unsubscribe()
     }, []);
 
     return (
         <div className="App">
-            <Header/>
+            <Header currentUser={currentUser}/>
             <Switch>
                 <Route exact path='/' component={HomePage}/>
                 <Route path='/shop' component={ShopPage}/>
