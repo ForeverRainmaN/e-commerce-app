@@ -4,6 +4,8 @@ import useForm from "../../hooks/useForm";
 import FormInput from "../form-input/FormInput";
 import CustomButton from "../custom-button/CustomButton";
 
+import {signInWithGoogle} from "../../firebase/firebase.utils"
+
 import "./sign-in.scss";
 
 interface FormValues {
@@ -23,7 +25,8 @@ const SignIn: FC = () => {
         handleSubmit
     } = useForm(
         initialValues,
-        (values) => console.log(values)
+        (values) => {
+        }
     )
     const {email, password} = values;
     return (
@@ -48,6 +51,7 @@ const SignIn: FC = () => {
                     handleChange={handleChange}
                 />
                 <CustomButton type="submit">Sign In</CustomButton>
+                <CustomButton onClick={signInWithGoogle}>Sign in with Google</CustomButton>
             </form>
         </div>
     )
