@@ -1,16 +1,17 @@
 import {useEffect, useRef, useState} from 'react';
 import {ChangeEvt, FormEvt} from "../common/types";
 
-const useForm = <V>(
+const useForm = <V extends { [P in keyof V]: V[P] }>(
     initialValues: V,
-    onSubmit: (values: V) => void)
+    onSubmit?: (values: V) => void)
     : {
     handleSubmit: (e: any) => void;
     handleChange: (e: ChangeEvt) => void;
     values: V;
+    setInitialValues: () => void;
 } => {
-    const [values, setValues] = useState<V>(initialValues || {} as V)
-    const clearState = () => {
+    const [values, setValues] = useState<V>(initialValues || {})
+    const setInitialValues = () => {
         setValues({...initialValues})
     }
     const formRendered = useRef<boolean>(true);
@@ -28,15 +29,19 @@ const useForm = <V>(
     };
 
     const handleSubmit: (e: FormEvt) => void = (e: FormEvt) => {
-        if (e) e.preventDefault()
-        onSubmit(values);
-        clearState();
+        if (onSubmit && e) {
+            e.preventDefault()
+            onSubmit(values);
+            e.currentTarget.reset();
+            setInitialValues();
+        }
     };
 
     return {
         values,
         handleChange,
         handleSubmit,
+        setInitialValues,
     };
 }
 

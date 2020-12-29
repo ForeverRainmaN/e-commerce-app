@@ -1,9 +1,10 @@
+import {ChangeEvent, FormEvent} from "react";
+import {FirebaseUser} from "../firebase/firebase.utils";
+
 // data interfaces
 
-import {ChangeEvent, FormEvent} from "react";
-
 export interface Identifiable {
-    id: number;
+    id: number | string;
 }
 
 export interface ShopPageSection extends Identifiable {
@@ -18,8 +19,17 @@ export interface ShopPageItem extends Identifiable {
     price: number;
 }
 
+export type User = Identifiable & {
+    [key in string | number]: string;
+} | FirebaseUser
+
+export interface FormValues {
+    email: string,
+    password: string
+}
+
+export type ObjectLiteral = { [key: string]: any };
 // events
 
 export type ChangeEvt = ChangeEvent<HTMLInputElement>
 export type FormEvt = FormEvent<HTMLFormElement>
-export type ObjectLiteral = { [key: string]: any };

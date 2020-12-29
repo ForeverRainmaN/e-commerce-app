@@ -5,21 +5,33 @@ import HomePage from "./pages/home/HomePage"
 import ShopPage from "./pages/shop/ShopPage";
 import Header from "./components/header/Header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/SignInAndSignUpPage";
-import {auth, Unsubscribe, User} from './firebase/firebase.utils';
+import {auth, createUserProfileDocument, Unsubscribe} from './firebase/firebase.utils';
 
 import './App.css';
+import {User} from "./common/types";
 
 const App = () => {
-    const [currentUser, setCurrentUser] = useState<User>(null)
+    const [currentUser, setCurrentUser] = useState<User>(null);
 
     useEffect(() => {
         const unsubscribe: Unsubscribe =
-            auth.onAuthStateChanged(user => {
-                setCurrentUser(user)
-            });
-        return () => unsubscribe()
-    }, []);
+            auth.onAuthStateChanged(async userAuth => {
+                    if (userAuth) {
+                        const userRef = await createUserProfileDocument(userAuth);
 
+                        userRef?.onSnapshot(snapShot => {
+                            setCurrentUser({
+                                id: snapShot.id,
+                                ...snapShot.data()
+                            })
+                        })
+                    } else {
+                        setCurrentUser(userAuth)
+                    }
+                }
+            );
+        return () => unsubscribe();
+    }, []);
     return (
         <div className="App">
             <Header currentUser={currentUser}/>
@@ -33,4 +45,3 @@ const App = () => {
 }
 
 export default App;
-

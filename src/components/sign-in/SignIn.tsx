@@ -3,15 +3,11 @@ import React, {FC} from 'react';
 import useForm from "../../hooks/useForm";
 import FormInput from "../form-input/FormInput";
 import CustomButton from "../custom-button/CustomButton";
+import {FormValues} from "../../common/types";
 
 import {signInWithGoogle} from "../../firebase/firebase.utils"
 
 import "./sign-in.scss";
-
-interface FormValues {
-    email: string,
-    password: string
-}
 
 const initialValues: FormValues = {
     email: '',
@@ -23,10 +19,8 @@ const SignIn: FC = () => {
         values,
         handleChange,
         handleSubmit
-    } = useForm(
-        initialValues,
-        (values) => {
-        }
+    } = useForm<FormValues>(
+        initialValues
     )
     const {email, password} = values;
     return (
