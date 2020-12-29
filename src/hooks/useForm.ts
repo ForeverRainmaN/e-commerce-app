@@ -8,9 +8,9 @@ const useForm = <V extends { [P in keyof V]: V[P] }>(
     handleSubmit: (e: any) => void;
     handleChange: (e: ChangeEvt) => void;
     values: V;
-    setInitialValues: () => void;
 } => {
     const [values, setValues] = useState<V>(initialValues || {})
+    
     const setInitialValues = () => {
         setValues({...initialValues})
     }
@@ -41,7 +41,6 @@ const useForm = <V extends { [P in keyof V]: V[P] }>(
         values,
         handleChange,
         handleSubmit,
-        setInitialValues,
     };
 }
 
